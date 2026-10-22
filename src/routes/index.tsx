@@ -37,7 +37,7 @@ function Index() {
           ))}
         </div>
 
-        <Link to="/login" className="group mt-12 inline-flex w-fit items-center gap-3 rounded-lg bg-primary px-7 py-4 font-display text-lg font-semibold uppercase tracking-widest text-primary-foreground glow transition hover:scale-[1.03]">
+        <Link to="/markas" className="group mt-12 inline-flex w-fit items-center gap-3 rounded-lg bg-primary px-7 py-4 font-display text-lg font-semibold uppercase tracking-widest text-primary-foreground glow transition hover:scale-[1.03]">
           Masuk Markas <ArrowRight className="transition group-hover:translate-x-1" />
         </Link>
       </section>

@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Calendar, Heart, LogOut, MapPin, MessageSquare, Search, Send, X } from "lucide-react";
+import { Calendar, LogIn, Eye, Heart, LogOut, MapPin, MessageSquare, Search, Send, X } from "lucide-react";
 import { AGENTS, ARCHIVES, CATEGORIES, filterArchives, isAuthed, logout, type Archive } from "@/lib/blackhunter";
 import { Slot } from "@/components/Slot";
 import { Footer } from "@/components/Footer";
@@ -118,10 +118,10 @@ function Markas() {
           </div>
         </section>
 
-        <Blackbox />
+        <Blackbox member={member} />
       </main>
       <Footer />
-      {open && <Lightbox a={open} onClose={() => setOpen(null)} />}
+      {open && <Lightbox member={member} a={open} onClose={() => setOpen(null)} />}
     </div>
   );
 }
@@ -135,7 +135,7 @@ function SectionTitle({ tag, title }: { tag: string; title: string }) {
   );
 }
 
-function Lightbox({ a, onClose }: { a: Archive; onClose: () => void }) {
+function Lightbox({ a, onClose, member }: { a: Archive; onClose: () => void; member: boolean }) {
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState<string[]>([]);
   const [c, setC] = useState("");
@@ -158,6 +158,7 @@ function Lightbox({ a, onClose }: { a: Archive; onClose: () => void }) {
             <span>Agen: {a.agent}</span>
           </div>
           <p className="mt-5 leading-relaxed text-muted-foreground">{a.story}</p>
+          {member ? (<>
           <button onClick={() => setLikes(likes + 1)} className="mt-6 flex w-fit items-center gap-2 rounded-full border border-border px-4 py-2 text-sm transition hover:border-primary hover:text-primary active:scale-95">
             <Heart size={16} className={likes ? "fill-primary text-primary" : ""} /> {likes} Respect
           </button>
@@ -170,13 +171,14 @@ function Lightbox({ a, onClose }: { a: Archive; onClose: () => void }) {
             <input value={c} onChange={(e) => setC(e.target.value)} placeholder="Tambah laporan..." className="flex-1 rounded-lg border border-input bg-background/60 px-3 py-2 text-sm outline-none focus:glow" />
             <button className="rounded-lg bg-primary px-3 text-primary-foreground" aria-label="Kirim"><Send size={16} /></button>
           </form>
+          </>) : (<p className="mt-6 flex items-center gap-2 rounded-lg border border-dashed border-border px-4 py-3 font-mono text-xs text-muted-foreground"><Eye size={14} /> Mode pengamat. Login sebagai agen untuk ikut berinteraksi.</p>)}
         </div>
       </div>
     </div>
   );
 }
 
-function Blackbox() {
+function Blackbox({ member }: { member: boolean }) {
   const [quotes, setQuotes] = useState<Quote[]>(SEED);
   const [name, setName] = useState("");
   const [text, setText] = useState("");
@@ -195,11 +197,13 @@ function Blackbox() {
   return (
     <section id="blackbox" className="scroll-mt-20 pt-20">
       <SectionTitle tag="03" title="Blackbox Quotes" />
+      {member ? (
       <form onSubmit={add} className="glass mt-8 flex flex-col gap-3 rounded-xl p-4 md:flex-row">
         <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nama sandi" className="rounded-lg border border-input bg-background/60 px-3 py-2.5 text-sm outline-none focus:glow md:w-48" />
         <input value={text} onChange={(e) => setText(e.target.value)} placeholder="Curhatan tanggal tua, pesan rahasia..." className="flex-1 rounded-lg border border-input bg-background/60 px-3 py-2.5 text-sm outline-none focus:glow" />
         <button className="flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 font-display font-semibold uppercase tracking-wider text-primary-foreground hover:glow"><Send size={16} /> Rekam</button>
       </form>
+      ) : (<p className="mt-6 flex items-center gap-2 rounded-lg border border-dashed border-border px-4 py-3 font-mono text-xs text-muted-foreground"><Eye size={14} /> Mode pengamat. Login sebagai agen untuk ikut berinteraksi.</p>)}
       <div className="mt-6 columns-1 gap-4 sm:columns-2 lg:columns-3">
         {quotes.map((x, i) => (
           <figure key={i} className={cn("glass mb-4 break-inside-avoid rounded-xl p-5 transition hover:glow animate-in fade-in", i % 3 === 1 && "md:rotate-1", i % 3 === 2 && "md:-rotate-1")}>

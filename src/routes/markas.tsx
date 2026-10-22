@@ -28,18 +28,16 @@ const SEED: Quote[] = [
 
 function Markas() {
   const nav = useNavigate();
-  const [ready, setReady] = useState(false);
+  const [member, setMember] = useState(false);
   const [cat, setCat] = useState<string>("Semua Misi");
   const [q, setQ] = useState("");
   const [open, setOpen] = useState<Archive | null>(null);
 
   useEffect(() => {
-    if (!isAuthed()) nav({ to: "/login" });
-    else setReady(true);
-  }, [nav]);
+    setMember(isAuthed());
+  }, []);
 
   const list = useMemo(() => filterArchives(ARCHIVES, cat, q), [cat, q]);
-  if (!ready) return null;
 
   return (
     <div className="min-h-screen">
@@ -51,9 +49,18 @@ function Markas() {
             <a href="#agen" className="hover:text-primary">Agen</a>
             <a href="#blackbox" className="hover:text-primary">Blackbox</a>
           </nav>
-          <button onClick={() => { logout(); nav({ to: "/" }); }} className="flex items-center gap-2 font-mono text-xs text-muted-foreground hover:text-destructive">
-            <LogOut size={14} /> Keluar
-          </button>
+          {member ? (
+            <div className="flex items-center gap-3">
+              <span className="hidden rounded-full border border-primary px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-primary sm:inline">Pemain Inti</span>
+              <button onClick={() => { logout(); setMember(false); }} className="flex items-center gap-2 font-mono text-xs text-muted-foreground hover:text-destructive">
+                <LogOut size={14} /> Keluar
+              </button>
+            </div>
+          ) : (
+            <button onClick={() => nav({ to: "/login" })} className="flex items-center gap-2 rounded-lg border border-primary px-3 py-1.5 font-mono text-xs text-primary hover:glow">
+              <LogIn size={14} /> Login Agen
+            </button>
+          )}
         </div>
       </header>
 

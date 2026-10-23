@@ -59,7 +59,7 @@
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
+  * { border-color: var(--color-border); letter-spacing: 0 !important; }
   html { scroll-behavior: smooth; }
   body {
     background-color: var(--color-background);
@@ -96,4 +96,9 @@
 }
 @utility scanline {
   background-image: repeating-linear-gradient(0deg, oklch(1 0 0 / 3%) 0 1px, transparent 1px 3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

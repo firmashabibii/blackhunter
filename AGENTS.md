@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Use the shared Button component for interactive commands, including linked commands via asChild, to keep touch targets and keyboard focus consistent.
+- Use Radix Dialog for archive details so focus, Escape dismissal, and background scroll locking stay accessible on all screen sizes.

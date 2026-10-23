@@ -1,0 +1,2 @@
+- [ ] Improve mobile layouts for home, headquarters, login, and archive details.
+- [ ] Verify navigation, filters, archive details, and signed-in presentation on mobile, plus desktop layout.

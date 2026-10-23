@@ -25,7 +25,7 @@ function Index() {
         <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full glass px-4 py-1.5 font-mono text-xs uppercase tracking-[0.3em] text-primary animate-in fade-in">
           <Crosshair size={14} /> Classified · Level 5
         </div>
-        <h1 className="font-display text-5xl font-bold text-glow sm:text-7xl md:text-9xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <h1 className="font-display text-4xl font-bold text-glow min-[380px]:text-5xl sm:text-7xl md:text-8xl lg:text-9xl animate-in fade-in slide-in-from-bottom-4 duration-700">
           BLACK<span className="text-primary">HUNTER</span>
         </h1>
         <p className="mt-4 font-display text-xl text-muted-foreground sm:text-2xl">The Elite Boarding House Chronicles</p>
